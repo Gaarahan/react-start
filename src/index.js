@@ -1,25 +1,13 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-
-import Game from "./components/Game/Game";
-import TempatureCalculator from "./components/TempatureCalculator/TempatureCalculator";
-import ProductTable from "./components/ProductTable/ProductTable";
-
-const App = (
-  <div className="App">
-    <Game />
-
-    <hr />
-
-    <TempatureCalculator />
-
-    <hr />
-
-    <ProductTable />
-  </div>
-);
+import { App } from "./components/App";
+import { BrowserRouter } from "react-router-dom";
 
 // ========================================
 
-ReactDOM.render(App, document.getElementById("root"));
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.getElementById("root")
+);

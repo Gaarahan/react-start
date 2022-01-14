@@ -2,6 +2,10 @@ import React from "react";
 
 export default class ProductTableBody extends React.Component {
   transformProductList(products) {
+    if (!products) {
+      return [];
+    }
+
     const categoryList = [];
     products.forEach((product) => {
       const category = categoryList.find(
