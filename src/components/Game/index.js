@@ -1,5 +1,6 @@
 import React from 'react';
 import Board from './Board';
+import GameRender from './GameRender.js';
 
 function calculateWinner(squares) {
   const lines = [
@@ -33,6 +34,7 @@ export default class Game extends React.Component {
       ],
       stepNumber: 0,
       xIsNext: true,
+      currentRenderCount: 1,
     };
   }
 
@@ -45,7 +47,7 @@ export default class Game extends React.Component {
       return;
     }
 
-    newSquare[i] = this.state.xIsNext ? "X" : "O";
+    newSquare[i] = this.state.xIsNext ? 'X' : 'O';
 
     this.setState({
       history: history.concat([
@@ -71,11 +73,11 @@ export default class Game extends React.Component {
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, moveIndex) => {
-      const desc = moveIndex ? "Go to move #" + moveIndex : "Go to game start";
+      const desc = moveIndex ? 'Go to move #' + moveIndex : 'Go to game start';
       return (
-        <li key={moveIndex}>
-          <button onClick={() => this.jumpTo(moveIndex)}>{desc}</button>
-        </li>
+          <li key={moveIndex}>
+            <button onClick={() => this.jumpTo(moveIndex)}>{desc}</button>
+          </li>
       );
     });
 
@@ -83,23 +85,41 @@ export default class Game extends React.Component {
     if (winner) {
       status = `Winner: ${winner}`;
     } else {
-      status = `Next player: ${this.state.xIsNext ? "X" : "O"}`;
+      status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
     }
 
+    console.log('render', 'has-error', this.state.currentRenderCount % 3 === 0);
     return (
-      <div className="game">
-        <div className="game-board">
-          <Board
-            squares={current.squares}
-            onClick={(i) => this.handleClick(i)}
-          />
+        <div>
+          <div className="title">
+            <button onClick={() => this.renderGameBoard()}>Refresh</button>
+          </div>
+
+          <br/>
+
+          <div className="game">
+            <GameRender resetKey={'currentRenderCount'} onReset={() => this.renderGameBoard()}>
+              <div className="game-board">
+                <Board
+                    currentRenderCount={this.state.currentRenderCount}
+                    squares={current.squares}
+                    onClick={(i) => this.handleClick(i)}
+                />
+              </div>
+              <div className="game-info">
+                <div>{status}</div>
+                <ol>{moves}</ol>
+              </div>
+            </GameRender>
+          </div>
         </div>
-        <div className="game-info">
-          <div>{status}</div>
-          <ol>{moves}</ol>
-        </div>
-      </div>
     );
+  }
+
+  renderGameBoard() {
+    this.setState({
+      currentRenderCount: this.state.currentRenderCount + 1,
+    });
   }
 }
 
