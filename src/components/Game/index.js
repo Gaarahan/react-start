@@ -72,7 +72,7 @@ export default class Game extends React.Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
-    const moves = history.map((step, moveIndex) => {
+    const moves = history.map((_, moveIndex) => {
       const desc = moveIndex ? 'Go to move #' + moveIndex : 'Go to game start';
       return (
           <li key={moveIndex}>
@@ -88,7 +88,7 @@ export default class Game extends React.Component {
       status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
     }
 
-    console.log('render', 'has-error', this.state.currentRenderCount % 3 === 0);
+
     return (
         <div>
           <div className="title">
@@ -122,4 +122,3 @@ export default class Game extends React.Component {
     });
   }
 }
-

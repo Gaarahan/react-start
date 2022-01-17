@@ -5,7 +5,7 @@ import Home from "./Home";
 import { UserContext } from "../utils";
 
 const Game = lazy(() => import("./Game"));
-const TempatureCalculator = lazy(() => import("./TempatureCalculator"));
+const TemperatureCalculator = lazy(() => import("./TemperatureCalculator"));
 const ProductTable = lazy(() => import("./ProductTable"));
 
 export default class App extends React.Component {
@@ -31,7 +31,7 @@ export default class App extends React.Component {
               <Link to="/tic-tac-toe">Tic-tac-toe</Link>
             </li>
             <li>
-              <Link to="/tempature-calculator">TempatureCalculator</Link>
+              <Link to="/temperature-calculator">TemperatureCalculator</Link>
             </li>
             <li>
               <Link to="/product-table">ProductTable</Link>
@@ -53,8 +53,8 @@ export default class App extends React.Component {
               <Route path="/" element={<Home />} />
               <Route path="/tic-tac-toe" element={<Game />} />
               <Route
-                path="/tempature-calculator"
-                element={<TempatureCalculator />}
+                path="/temperature-calculator"
+                element={<TemperatureCalculator />}
               />
               <Route path="/product-table" element={<ProductTable />} />
             </Routes>
